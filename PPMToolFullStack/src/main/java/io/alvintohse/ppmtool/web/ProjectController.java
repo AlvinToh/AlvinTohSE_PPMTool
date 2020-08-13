@@ -3,6 +3,7 @@ package io.alvintohse.ppmtool.web;
 import io.alvintohse.ppmtool.domain.Project;
 import io.alvintohse.ppmtool.services.MapErrorValidationService;
 import io.alvintohse.ppmtool.services.ProjectService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,5 +29,12 @@ public class ProjectController {
 
         Project project1 = projectService.saveOrUpdateProject(project);
         return new ResponseEntity<Project>(project, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{projectId}")
+    public ResponseEntity<?> getProjectById(@PathVariable String projectId){
+        Project project = projectService.findProjectByIdentifier(projectId);
+
+        return new ResponseEntity<Project>(project, HttpStatus.OK);
     }
 }
